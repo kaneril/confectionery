@@ -1,6 +1,7 @@
 <?php
+ini_set('session.gc_maxlifetime', 60*60*24);
  session_start();
- ini_set('session.gc_maxlifetime', 60*60*24);
+ 
  if($_POST['submit']){
 
    require_once 'login.php';
