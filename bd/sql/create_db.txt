@@ -1,0 +1,59 @@
+create database confectionery;
+
+GRANT USAGE ON *.* TO 'supermanager'@'%' IDENTIFIED BY PASSWORD '*73647723DCD3B0452C6AB0ABD588D2038B45266D';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `confectionery`.* TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`order_list` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`products` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`log_list` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`orders` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`sessions` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`managers` TO 'supermanager'@'%';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON `confectionery`.`order_processing` TO 'supermanager'@'%';
+
+GRANT USAGE ON *.* TO 'manager'@'%' IDENTIFIED BY PASSWORD '*676C27274C60880CBA1C65C525D9EE2AD67E527B';
+
+GRANT SELECT, UPDATE (password) ON `confectionery`.`managers` TO 'manager'@'%';
+
+GRANT INSERT ON `confectionery`.`log_list` TO 'manager'@'%';
+
+GRANT SELECT, UPDATE ON `confectionery`.`orders` TO 'manager'@'%';
+
+GRANT SELECT, INSERT ON `confectionery`.`order_processing` TO 'manager'@'%';
+
+GRANT SELECT, UPDATE ON `confectionery`.`order_list` TO 'manager'@'%';
+
+GRANT SELECT, INSERT, UPDATE ON `confectionery`.`products` TO 'manager'@'%';
+
+GRANT USAGE ON *.* TO 'user'@'%' IDENTIFIED BY PASSWORD '*FE6CFC9166E0D3628101D0954E9EC89A5278778A';
+
+GRANT SELECT ON `confectionery`.`managers` TO 'user'@'%';
+
+GRANT INSERT ON `confectionery`.`orders` TO 'user'@'%';
+
+GRANT SELECT, INSERT, UPDATE ON `confectionery`.`sessions` TO 'user'@'%';
+
+GRANT SELECT ON `confectionery`.`products` TO 'user'@'%';
+
+GRANT INSERT ON `confectionery`.`order_processing` TO 'user'@'%';
+
+GRANT INSERT ON `confectionery`.`order_list` TO 'user'@'%';
+
+
+
+
+
+
+
+
+
+
+
+

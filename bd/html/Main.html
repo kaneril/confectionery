@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Сладкое королевство</title>
+		<meta charset = "utf-8">
+		<link rel = "stylesheet" type = "text/css" href = "../css/style.css">
+	</head>
+	
+	<body>
+		<div id="envelope" class="authorization">
+			<div class="up">
+				<p class="authorizat">Авторизация</p>
+				<img class="close-btn" src="../images/icons/cross.png" onclick = "document.getElementById('envelope').style.display='none';document.getElementById('fade').style.display='none'">
+			</div>
+			<form method="post" action="../php/Authorize.php">
+				<input name="login" placeholder="Login*" class="textbox" required />
+				<input name="password" placeholder="Password*" class="textbox" type="password" required />
+				<input type="submit" name="submit" value="Sign In" class="button">
+			</form>
+		</div>
+		<div id="fade" class="black-overlay"></div>
+		
+		<div class="header">
+			<h1> Сладкое королевство </h1>
+			<div class = "logo">
+				<img class = "logotype" src="../images/logo.png" onclick="document.getElementById('envelope').style.display='block'; document.getElementById('fade').style.display='block'">	
+			</div>
+			<marquee behavior="scroll" direction="left"><h3>Мы рады Вас приветствовать в нашей кондитерской фабрике</h3></marquee>
+		</div>
+
+		<div class="container_full">
+			<h2> Торты и десерты на любой случай жизни</h2>
+			<img src="../images/laduree.jpg" class="rightimg">
+			<div class = "container">
+				<h4 align="left">
+					<p>&nbspОнлайн витрина Сладкого королевства - уникальный и современный уголок для свежайших десертов. Наше ноу-хау! Наши десерты приготовлены специально для вас и они всегда максимально свежие. </p>
+					<p>&nbspЛюбимые с детства вкусы возвращают нас в тот беззаботный мир мечтаний и грез, когда придуманный сказочный мир значил для нас гораздо больше, чем мир реальный…</p>
+					<p>&nbspКаждое творение мастеров порадует любителей сладкого: <br>эксклюзивные торты, <br>вкуснейшие пирожные, <br>аппетитные печенья, <br>кексы, <br>восточные сладости <br>и многое другое.</p>
+				</h4>
+			</div>
+			<a class="wsbutton" href="../php/showcase.php">
+				<h5 align="center">Зайти в магазин</h5>
+			</a>
+		</div>
+	</body>
+</html>

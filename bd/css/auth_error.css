@@ -1,0 +1,27 @@
+.auth_error{
+	margin: 0 auto;
+	max-width: 300px;
+	background-color: #FFEBCD;
+	border: 2px solid #8B4513;
+	
+}
+.order_error{
+	max-width: 300px;
+	margin: 0 auto;
+	margin-top: 10px;
+	background-color: #FFEBCD;
+	border: 2px solid #8B4513;
+}
+h2{
+	color: #8B4513;
+	font-size: 20pt;
+	font-style: normal;
+	padding-left: 15px;	
+	}
+.close-button {
+	margin-left: 270px;
+    width: 30px;
+	height: 30px;
+	margin-bottom: -20px;
+
+}
