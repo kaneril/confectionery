@@ -469,7 +469,7 @@ if (isset($_POST['change_password'])){
          
     echo<<<_END
  <div id="fade" class="black-overlay"></div>
-     <form action="personal.php"  method="post" id="order_list" class="order">
+     <form action="logs.php"  method="post" id="order_list" class="order">
          <img class="close-btn" src="../images/icons/cross.png" onclick = "document.getElementById('order_list').style.display='none';document.getElementById('fade').style.display='none'">
          
          <div class="text">
@@ -500,7 +500,7 @@ if (isset($_POST['change_password'])){
     echo<<<_END
 		<div id="fade" class="black-overlay"></div>
 		<div class="order">
-			<a  href="personal.php"><img class="close-button" src="../images/icons/cross.png" onclick = "document.getElementById('order').style.display='none';document.getElementById('fade').style.display='none'"></a>
+			<a  href="logs.php"><img class="close-button" src="../images/icons/cross.png" onclick = "document.getElementById('order').style.display='none';document.getElementById('fade').style.display='none'"></a>
 			<h2>$str</h2>
 		</div>
 _END;
@@ -543,7 +543,7 @@ function mysql_change_pass($conn){
             return 'Новые пароли не совпадают';
         }
 
-        $stmt=$conn->prepare("UPDATE managers SET  `password`=? WHERE `login`=? AND `password`=?");
+        $stmt=$conn->prepare("UPDATE managers SET `password`=? WHERE `login`=? AND `password`=?");
         $stmt->bind_param('sss',$new_pass,$log,$old_password);
         
         $new_pass=$new_pass1;

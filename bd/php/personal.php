@@ -145,13 +145,13 @@ _END;
         <div class="text">
             <h1 align=center>
             <h1 align="center">ID - $id <br><br>
-            Логин: <input name="login" value="$login" /><br><br>
-            Пароль: <input name="password" value="$password" ><br><br>
+            Логин: <input name="login" value="$login"><br><br>
+            Пароль: <input name="password" value="$password"><br><br>
             Роль:            
             <select align="center" name="role_status">
             <option value="hide" selected disabled hidden>$p_role_status</option>
                 <option value="supermanager">Суперменеджер</option>
-                <option value="manager" >Менеджер</option>
+                <option value="manager">Менеджер</option>
                 <option value="anouther">Технический</option>
             </select> <br></h1> 
             <input type="hidden" name="actual_role_status" value="$p_role_status">
@@ -352,9 +352,9 @@ if (isset($_POST['change_password'])){
          
          <div class="text">
              <h1 align=center>
-             Старый пароль: <input type="password" name="old_pass" required /><br><br>
-             Новый пароль: <input type="password" name="new_pass1" required /><br><br>
-             Повторите новый пароль: <input type="password" name="new_pass2" required /><br><br>
+             Старый пароль: <input type="password" name="old_pass" required><br><br>
+             Новый пароль: <input type="password" name="new_pass1" required><br><br>
+             Повторите новый пароль: <input type="password" name="new_pass2" required><br><br>
              </h1> 
              
              
