@@ -1,5 +1,7 @@
 <?php
     require_once 'login.php';
+    require_once 'useful.php';
+
     $conn=new mysqli($hn, $un, $pw, $db);
 
     if($conn->connect_error) die ("Fatal Error");
@@ -237,16 +239,4 @@ function mysql_insert_order($conn){
     
 }
 
-
-function mysql_entites_fix_string($conn, $string){
-    return htmlentities(mysql_fix_string($conn, $string));
-}
-function mysql_fix_string($conn, $string){
-    if(get_magic_quotes_gpc()) $string = stripcslashes($string);
-    return $conn->real_escape_string($string);
-}
-
-function get_post($conn, $var){
-    return $conn->real_escape_string($_POST[$var]);
-}    
 ?>

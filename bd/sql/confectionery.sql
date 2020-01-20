@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 20 2020 г., 01:39
+-- Время создания: Янв 20 2020 г., 20:26
 -- Версия сервера: 10.4.10-MariaDB
 -- Версия PHP: 7.3.12
 
@@ -112,7 +112,39 @@ INSERT INTO `log_list` (`id`, `session_id`, `created_date`, `action_type`, `elem
 (69, 22, '2020-01-20 03:23:08', 'add_manager', 9),
 (70, 22, '2020-01-20 03:23:21', 'delete_manager', 9),
 (71, 22, '2020-01-20 03:25:13', 'change_password', 22),
-(72, 22, '2020-01-20 03:25:32', 'change_manager', 1);
+(72, 22, '2020-01-20 03:25:32', 'change_manager', 1),
+(73, 24, '2020-01-20 11:22:16', 'change_order', 2),
+(74, 24, '2020-01-20 11:22:30', 'change_order', 2),
+(75, 24, '2020-01-20 11:22:52', 'change_order', 3),
+(76, 24, '2020-01-20 11:23:26', 'change_order', 2),
+(77, 24, '2020-01-20 11:27:48', 'change_order', 1),
+(78, 25, '2020-01-20 12:45:01', 'change_order', 3),
+(79, 25, '2020-01-20 12:46:17', 'change_product', 2),
+(80, 25, '2020-01-20 12:46:36', 'change_product', 2),
+(81, 29, '2020-01-20 21:20:14', 'change_password', 29),
+(82, 29, '2020-01-20 21:21:31', 'change_password', 29),
+(83, 29, '2020-01-20 21:26:51', 'change_password', 29),
+(84, 31, '2020-01-20 21:44:11', 'change_password', 31),
+(85, 31, '2020-01-20 21:45:16', 'change_password', 31),
+(86, 31, '2020-01-20 21:48:15', 'change_password', 31),
+(87, 31, '2020-01-20 21:49:52', 'change_password', 31),
+(88, 31, '2020-01-20 21:50:51', 'change_password', 31),
+(89, 32, '2020-01-20 21:53:19', 'change_manager', 2),
+(90, 32, '2020-01-20 21:53:39', 'change_manager', 3),
+(91, 32, '2020-01-20 21:53:51', 'change_manager', 4),
+(92, 32, '2020-01-20 21:58:15', 'add_manager', 10),
+(93, 32, '2020-01-20 21:59:11', 'change_manager', 10),
+(94, 32, '2020-01-20 22:05:19', 'change_manager', 10),
+(95, 32, '2020-01-20 22:06:29', 'change_manager', 10),
+(96, 32, '2020-01-20 22:06:47', 'change_manager', 10),
+(97, 33, '2020-01-20 22:18:57', 'change_password', 33),
+(98, 33, '2020-01-20 22:19:34', 'change_password', 33),
+(99, 33, '2020-01-20 22:20:07', 'change_password', 33),
+(100, 33, '2020-01-20 22:20:45', 'change_password', 33),
+(101, 33, '2020-01-20 22:21:15', 'change_manager', 1),
+(102, 34, '2020-01-20 22:23:42', 'change_password', 34),
+(103, 34, '2020-01-20 22:24:11', 'change_password', 34),
+(104, 34, '2020-01-20 22:24:37', 'change_password', 34);
 
 -- --------------------------------------------------------
 
@@ -123,7 +155,7 @@ INSERT INTO `log_list` (`id`, `session_id`, `created_date`, `action_type`, `elem
 CREATE TABLE `managers` (
   `id` int(10) UNSIGNED NOT NULL,
   `login` varchar(20) NOT NULL CHECK (`login` <> ''),
-  `password` varchar(30) NOT NULL CHECK (char_length(`password`) > 6),
+  `password` varchar(255) NOT NULL,
   `role` enum('manager','supermanager','anouther') NOT NULL DEFAULT 'manager'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -132,10 +164,11 @@ CREATE TABLE `managers` (
 --
 
 INSERT INTO `managers` (`id`, `login`, `password`, `role`) VALUES
-(1, 'Kate', 'gfhjkm rfnz', 'supermanager'),
-(2, 'Lena', 'gfhjkm ktyf', 'manager'),
-(3, 'Anna', 'gfhjkm fyz', 'manager'),
-(4, 'Auto', 'password', 'anouther');
+(1, 'Kate', '$2y$10$M9FApaIOyILjLaYEhuc2Ge98navuaV7u2Cu/HhqWAl0awRE5VsRO.', 'supermanager'),
+(2, 'Lena', '$2y$10$2cU7zVAaKU7W2ixaWGa6T.S2KhV3Lb8aOH5XKo9JI5aA6dsvkgbTi', 'manager'),
+(3, 'Anna', '$2y$10$Y8I9PsTZaQTgD0Y/Lr7ywO1IZ0IhB5GY9fuEZhd/OOk9Xy87NYy/a', 'manager'),
+(4, 'Auto', '$2y$10$rOFON0O9p4p7SM2bT7A67OxadMWo2dfBY75G0efc5rWALN0Lm8Pxm', 'anouther'),
+(10, 'Katherine', '$2y$10$NO0LSP9GBuW6uoprefpxcO0Vea5YA9lQGAVRjRzzimyx1YqT8UJd2', 'anouther');
 
 -- --------------------------------------------------------
 
@@ -150,7 +183,7 @@ CREATE TABLE `orders` (
   `created_date` datetime NOT NULL DEFAULT current_timestamp(),
   `packaging_cost` decimal(10,2) NOT NULL DEFAULT 0.00,
   `production_cost` decimal(10,2) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `orders`
@@ -177,7 +210,7 @@ CREATE TABLE `order_list` (
   `product_id` int(10) UNSIGNED NOT NULL,
   `quantity` tinyint(3) UNSIGNED NOT NULL,
   `cost` decimal(10,2) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `order_list`
@@ -255,7 +288,13 @@ INSERT INTO `order_processing` (`id`, `order_id`, `order_status`, `changing_date
 (11, 2, 'new', '2020-01-20 01:44:33', 1),
 (12, 8, 'new', '2020-01-20 02:15:38', 4),
 (13, 9, 'new', '2020-01-20 02:19:35', 4),
-(14, 9, 'processed', '2020-01-20 02:20:25', 2);
+(14, 9, 'processed', '2020-01-20 02:20:25', 2),
+(20, 2, 'processed', '2020-01-20 11:22:16', 1),
+(21, 2, 'made', '2020-01-20 11:22:30', 1),
+(22, 3, 'made', '2020-01-20 11:22:52', 1),
+(23, 2, 'received', '2020-01-20 11:23:26', 1),
+(24, 1, 'received', '2020-01-20 11:27:48', 1),
+(25, 3, 'received', '2020-01-20 12:45:01', 1);
 
 -- --------------------------------------------------------
 
@@ -269,7 +308,7 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `img_url` varchar(200) NOT NULL DEFAULT '0.jpg',
   `availability` tinyint(1) NOT NULL DEFAULT 1
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `products`
@@ -277,7 +316,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `price`, `img_url`, `availability`) VALUES
 (1, 'Капкейк Мачо', '100.00', '1.jpg', 1),
-(2, 'Капкейк Шоколадный мусс', '135.00', '2.jpg', 1),
+(2, 'Капкейк Шоколадный мусс', '135.00', '2.jpg', 0),
 (3, 'Капкейк Летний микс', '120.00', '3.jpg\r', 1),
 (4, 'Капкейк Фреш', '120.00', '4.jpg\r', 1),
 (5, 'Капкейк Оранжевое настроение', '100.00', '5.jpg', 1),
@@ -326,7 +365,21 @@ INSERT INTO `sessions` (`id`, `manager_id`, `begin_date`, `end_date`) VALUES
 (19, 1, '2020-01-20 02:27:49', '2020-01-20 02:34:47'),
 (20, 1, '2020-01-20 02:48:42', '2020-01-20 03:16:16'),
 (21, 2, '2020-01-20 03:17:36', '2020-01-20 03:20:55'),
-(22, 1, '2020-01-20 03:21:15', '2020-01-20 03:25:41');
+(22, 1, '2020-01-20 03:21:15', '2020-01-20 03:25:41'),
+(23, 1, '2020-01-20 10:28:33', '2020-01-20 11:11:31'),
+(24, 1, '2020-01-20 11:20:51', '2020-01-20 11:45:36'),
+(25, 1, '2020-01-20 12:09:50', '2020-01-20 12:46:39'),
+(26, 1, '2020-01-20 12:47:00', '2020-01-20 12:49:06'),
+(27, 2, '2020-01-20 12:49:46', '2020-01-20 13:04:48'),
+(28, 1, '2020-01-20 13:04:56', '2020-01-20 13:13:17'),
+(29, 1, '2020-01-20 21:19:51', '2020-01-20 21:32:58'),
+(30, 1, '2020-01-20 21:33:09', '2020-01-20 21:33:14'),
+(31, 1, '2020-01-20 21:42:52', '2020-01-20 21:51:00'),
+(32, 1, '2020-01-20 21:51:25', '2020-01-20 22:17:08'),
+(33, 1, '2020-01-20 22:17:20', '2020-01-20 22:23:11'),
+(34, 2, '2020-01-20 22:23:21', '2020-01-20 22:24:51'),
+(35, 2, '2020-01-20 22:25:00', '2020-01-20 22:25:02'),
+(36, 3, '2020-01-20 22:25:12', '2020-01-20 22:25:14');
 
 --
 -- Индексы сохранённых таблиц
@@ -389,43 +442,43 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT для таблицы `log_list`
 --
 ALTER TABLE `log_list`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT для таблицы `managers`
 --
 ALTER TABLE `managers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT для таблицы `order_processing`
 --
 ALTER TABLE `order_processing`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

@@ -10,6 +10,8 @@
   $name=$_SESSION['logged_user'];
 
   require_once 'login_supermanager.php';
+  require_once 'useful.php';
+
   $conn=new mysqli($hn, $un, $pw, $db);
 
   if($conn->connect_error) die ("Fatal Error");
@@ -519,54 +521,6 @@ _END;
 
 $conn->close(); 
 
-
-function mysql_change_pass($conn){
-    if (isset($_POST['db_change_pass'])){
-
-        $login=$_SESSION['logged_user'];
-        $old_pass=get_post($conn, 'old_pass');
-        $new_pass1=get_post($conn, 'new_pass1');
-        $new_pass2=get_post($conn, 'new_pass2');
-        
-        $query="SELECT * FROM managers WHERE `login`='$login' AND `password`='$old_pass'";
-        $result=$conn->query($query);         
-        if(!$result) die ("Сбой при доступе к базе данных");
-        
-        if($result->num_rows ==0){
-            $result->close();
-            return 'Был введен неправильный старый пароль!';
-        }
-
-        $result->close();
-
-        if($new_pass1 != $new_pass2){
-            return 'Новые пароли не совпадают';
-        }
-
-        $stmt=$conn->prepare("UPDATE managers SET `password`=? WHERE `login`=? AND `password`=?");
-        $stmt->bind_param('sss',$new_pass,$log,$old_password);
-        
-        $new_pass=$new_pass1;
-        $log=$login;
-        $old_password=$old_pass;  
-        
-        $flag=$stmt->execute();
-        $stmt->close(); 
-        if ($flag===0){
-            return 'Ошибка смены пароля!';
-        } else{
-            return 'Пароль был успешно сменен!';
-        }
-        
-        
-    }    
-    
-    
-    
-}
-
-
-
 function find_session($conn, $id){
 	$query="SELECT s.id, m.login, m.role, s.begin_date, s.end_date FROM `sessions` as s
     JOIN `managers` as m on s.manager_id=m.id
@@ -685,17 +639,7 @@ ORDER BY ll.created_date $order_by_l";
 	}
 }
 
-function mysql_entites_fix_string($conn, $string){
-    return htmlentities(mysql_fix_string($conn, $string));
-}
-function mysql_fix_string($conn, $string){
-    if(get_magic_quotes_gpc()) $string = stripcslashes($string);
-    return $conn->real_escape_string($string);
-}
-
-function get_post($conn, $var){
-    return $conn->real_escape_string($_POST[$var]);
-}    
+ 
 ?>
  
 	

@@ -10,6 +10,8 @@
   $name=$_SESSION['logged_user'];
 
   require_once 'login_supermanager.php';
+  require_once 'useful.php';
+
   $conn=new mysqli($hn, $un, $pw, $db);
 
   if($conn->connect_error) die ("Fatal Error");
@@ -146,7 +148,7 @@ _END;
             <h1 align=center>
             <h1 align="center">ID - $id <br><br>
             Логин: <input name="login" value="$login"><br><br>
-            Пароль: <input name="password" value="$password"><br><br>
+            Пароль: <input name="password" value="password"><br><br>
             Роль:            
             <select align="center" name="role_status">
             <option value="hide" selected disabled hidden>$p_role_status</option>
@@ -201,7 +203,7 @@ if ((isset($_POST['view_managers'])) &&
         <h3>Список менеджеров</h3>
                         <div class="table">
                             <table class="table_order_list">
-                                <tr><th>№</th><th>ID менеджера</th><th>Логин</th><th>Пароль</th><th>Роль</th></tr>
+                                <tr><th>№</th><th>ID менеджера</th><th>Логин</th><th>Роль</th></tr>
 _END;
     for ($j = 0; $j<$rows; ++$j){
         $number=$j+1;
@@ -219,7 +221,6 @@ _END;
         <input type="hidden" name="view_manager" value='yes'>				
     </form>&nbsp</td>
         <td>$login&nbsp</td>
-        <td>$password&nbsp</td>
         <td>$p_role_status&nbsp</td>
         
         </tr>
@@ -406,7 +407,7 @@ function mysql_add_manager($conn){
         
           
         $login=get_post($conn, 'login');
-        $password=get_post($conn, 'password');
+        $password=password_hash(get_post($conn, 'password'), PASSWORD_DEFAULT);
         
         $role=get_post($conn,'role_status');
                 
@@ -430,62 +431,25 @@ function mysql_add_manager($conn){
     
 }
 
-function mysql_change_pass($conn){
-    if (isset($_POST['db_change_pass'])){
 
-        $login=$_SESSION['logged_user'];
-        $old_pass=get_post($conn, 'old_pass');
-        $new_pass1=get_post($conn, 'new_pass1');
-        $new_pass2=get_post($conn, 'new_pass2');
-        
-        $query="SELECT * FROM managers WHERE `login`='$login' AND `password`='$old_pass'";
-        $result=$conn->query($query);         
-        if(!$result) die ("Сбой при доступе к базе данных");
-        
-        if($result->num_rows ==0){
-            $result->close();
-            return 'Был введен неправильный старый пароль!';
-        }
-
-        $result->close();
-
-        if($new_pass1 != $new_pass2){
-            return 'Новые пароли не совпадают';
-        }
-
-        $stmt=$conn->prepare("UPDATE managers SET  `password`=? WHERE `login`=? AND `password`=?");
-        $stmt->bind_param('sss',$new_pass,$log,$old_password);
-        
-        $new_pass=$new_pass1;
-        $log=$login;
-        $old_password=$old_pass;  
-        
-        $flag=$stmt->execute();
-        $stmt->close(); 
-        if ($flag===0){
-            return 'Ошибка смены пароля!';
-        } else{
-            add_log($conn, 'change_password', $_SESSION['session_id']);
-            return 'Пароль был успешно сменен!';
-        }
-        
-        
-    }    
-    
-    
-    
-}
 
 function mysql_change_manager($conn){
     if (isset($_POST['change_manager'])){
-                       
-        $stmt=$conn->prepare('UPDATE managers SET `login`=?, `password`=?, `role`=?  WHERE `id`=?');
-        $stmt->bind_param('sssi',$login,$password,$role,$id);
+           
+        $pass=get_post($conn, 'password');
+        if ($pass=='password'){
+            $stmt=$conn->prepare('UPDATE managers SET `login`=?, `role`=?  WHERE `id`=?');
+            $stmt->bind_param('ssi',$login,$role,$id);
+        }else{
+            $stmt=$conn->prepare('UPDATE managers SET `login`=?, `password`=?, `role`=?  WHERE `id`=?');
+            $stmt->bind_param('sssi',$login,$password,$role,$id);
+            $password=password_hash($pass, PASSWORD_DEFAULT);
+        }        
         
         $id=get_post($conn,'change_manager');
         
         $login=get_post($conn, 'login');
-        $password=get_post($conn, 'password');
+        
         
         if (isset($_POST['role_status'])){
             $role=get_post($conn,'role_status');
@@ -576,32 +540,10 @@ function find_managers($conn, $role_status){
 	}
 }
 
-function add_log($conn, $str, $id){
-    $stmt=$conn->prepare('INSERT INTO log_list (`session_id`, `action_type`, `elem_id`) VALUES(?,?,?)');
-        $stmt->bind_param('isi',$session_id,$status,$elem_id);
-        
-          
-        $session_id=$_SESSION['session_id'];
-        $status=$str;
-        $elem_id=$id;
 
-        $stmt->execute();
-        $stmt->close();
-    
-    
-}
 
-function mysql_entites_fix_string($conn, $string){
-    return htmlentities(mysql_fix_string($conn, $string));
-}
-function mysql_fix_string($conn, $string){
-    if(get_magic_quotes_gpc()) $string = stripcslashes($string);
-    return $conn->real_escape_string($string);
-}
 
-function get_post($conn, $var){
-    return $conn->real_escape_string($_POST[$var]);
-}    
+  
 ?>
  
 	

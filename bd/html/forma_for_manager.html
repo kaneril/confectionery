@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Для менеджера</title>
+		<meta charset = "utf-8">
+		<link rel = "stylesheet" type = "text/css" href = "../css/for_manager.css">
+	</head>
+	
+	<body>
+		<div class="forma_for_manager">
+			<div class="session">
+				<div class="filters">
+					<h1>Фильтры:</h1>
+					<label class="radio"><input type="radio" id="new" name="button"> Новые </label><br>
+					<label class="radio"><input type="radio" id="in_process" name="button"> Выполняются </label><br>
+					<label class="radio"><input type="radio" id="ready" name="button"> Готовы </label><br>
+					<label class="radio"><input type="radio" id="recieved" name="button"> Получены </label><br>
+				</div>
+				
+				<div class="user">
+					<h3>Пользователь <input name="user_name"/> </h3>
+				</div>
+				
+				<div class="sign_out">
+					<a class="exit" href="../html/Main.html">
+					<h3 align="center">Выход</h3>
+					</a>
+				</div>
+			</div>
+			
+			<div class="order">
+				<div class="order_number">
+					<h1> &nbspНомер заказа <input name="order_number"/></h1>
+					<div class="find">
+						<button class="find_order_button" onclick="document.getElementById('find_item').style.display='block'; document.getElementById('fade').style.display='block'">Найти</button>
+					</div>
+				</div>
+							
+				<div class="order_list">
+					<h2> Список заказов </h2>
+				</div>
+			</div>	
+			<div id="fade" class="black-overlay"></div>
+			<div id="find_item" class="find_order">
+				<a  href="forma_for_meneger.html"><img class="close-button" src="../images/icons/cross.png"></a>
+				<div class="item_number">
+					<h1 align="center"> Заказ № <input name="item_number" /></h1> 
+				</div>
+				<div class="date">
+					<div class="date_create">
+						<h3> Дата создания <input name="date_create" /></h3>
+					</div>
+					<div class="date_update">
+						<h3> Дата обновления <input name="date_update" /></h3>
+					</div>
+				</div>
+				<div class="status">
+					<h3> Статус 
+						<select>
+							<option>Новый</option>
+							<option>Выполняется</option>
+							<option>Готов</option>
+							<option>Получен</option>
+						</select>
+					</h3>
+				</div>
+				<div class="spisok_tovarov">
+					<h3 class="list_products">Список товаров</h3>
+					<div class="table">
+						<!--Таблица -->
+					</div>
+				
+				</div>
+				<div class="order_list">
+					<div class = "cost">
+						<div class="cost_item">
+							<h3>Стоимость товара <input name="cost_item" /></h3>
+						</div>
+						
+						<div class="cost_package">
+							<h3>Стоимость упаковки <input name="cost_package" /></h3>
+						</div>
+					</div>
+					
+					<div class="amount">
+						<h3>ИТОГО <input name="amount" /> </h3> 
+					</div>
+					<div class="phone">
+						<h3>Телефон для связи 
+						<form method="post" action="../php/Authorize.php">
+							<input name="phone_number" placeholder="Введите номер" class="textbox" />
+						</form></h3>
+					</div>
+					<div class="button">
+						<a class="change_button" href="../html/forma_for_meneger.html">
+							<h3 align="center">Сохранить изменения</h2>
+						</a>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</body>
+</html>
+			
+	

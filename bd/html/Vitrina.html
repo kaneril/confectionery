@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Витрина</title>
+		<meta charset = "utf-8">
+		<link rel = "stylesheet" type = "text/css" href = "../css/vitrina.css">
+	</head>
+	
+	<body>
+	
+		<div id="order_list" class="order">
+			<img class="close-btn" src="../images/icons/cross.png" onclick = "document.getElementById('order_list').style.display='none';document.getElementById('fade').style.display='none'">
+			<div class="spisok_tovarov">
+				<h6 class="list_products">Список товаров</h6>
+				<div class="table">
+					<!--Таблица -->
+				</div>
+				
+			</div>
+			
+			<div class = "cost">
+				<div class="cost_item">
+					<h6>Стоимость товара <input name="cost_item" /></h6>
+				</div>
+				
+				<div class="cost_package">
+					<h6>Стоимость упаковки <input name="cost_package" /></h6>
+				</div>
+			</div>
+			
+			<div class="amount">
+				<h7>ИТОГО <input name="amount" /> </h7> 
+			</div>
+			
+			<div class="phone">
+				<br><h8>Для оформления заказа введите номер </h8>
+				<form method="post" action="../php/Authorize.php">
+					<input name="phone_number" placeholder="Введите номер телефона" class="textbox" required />
+				</form>
+			</div>
+			
+			<button class="complete_order" onclick="document.getElementById('thank_you').style.display='block'; document.getElementById('fade').style.display='block'">Оформить заказ</button>
+		<!--<form method="post" action="../php/Authorize.php">
+            <input name="login" placeholder="Login*" class="textbox" required />
+            <input name="password" placeholder="Password*" class="textbox" type="password" required />
+            <input type="submit" name="submit" value="Sign In" class="button">
+        </form>-->
+		</div>
+		<div id="fade" class="black-overlay"></div>
+		<div id="thank_you" class="thanks">
+			<a  href="Main.html"><img class="close-button" src="../images/icons/cross.png"></a>
+			<h8> Спасибо за Ваш заказ!</h8> <br>
+			<h9> Наши менеджеры свяжутся с Вами</h9> <h9>для уточнения параметров &nbspзаказа! </h9><br><br><br><br>
+			<div class="track_code">
+				<br>
+				<h8> Номер для отслеживания&nbsp</h8>
+				<input name="track_number" />
+			</div>
+			
+		</div>
+	
+	
+		<div class="head">
+			<h1> Ассортимент </h1>
+			<a class="wsbutton" href="../html/Main.html">
+				<h2 align="center">На главную</h2>
+			</a>
+		</div>
+			
+		
+		<div class="container_full">
+			<div class="b1 f1">
+				<div class="container_photo">
+					<img src="../images/Products/1.jpg" class="img">
+				</div>
+				<div class="text">
+					<h3 align="center">Капкейк "Мачо"</h3>
+					<h4 align="center">Цена - 100 р/шт</h4>
+				</div>
+				<div class="colvo">
+					<h5> Количество: </h5>
+					<p><input type="number" size="3" name="num" min="0" max="100" value="0" class="number"></p>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+		
+	</body>
+	
+	<footer>
+		<div class="footer">	
+			<button class="show_order" onclick="scroll(0,0); document.getElementById('order_list').style.display='block'; document.getElementById('fade').style.display='block'">Посмотреть заказ</button>
+			<a class="cancel" href="../Vitrina.html">
+				<h2 align="center">Сбросить</h2>
+			</a>
+		</div>
+	</footer>
+</html>

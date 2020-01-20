@@ -1,25 +1,29 @@
 <?php
 ini_set('session.gc_maxlifetime', 60*60*24);
- session_start();
+session_start();
  
  if($_POST['submit']){
 
    require_once 'login.php';
+   require_once 'useful.php';
+
    $conn=new mysqli($hn, $un, $pw, $db);
 
    if($conn->connect_error) die ("Fatal Error");
    $login=mysql_entites_fix_string($conn, $_POST['login']);
    $password=mysql_entites_fix_string($conn, $_POST['password']);
 
-   $query="SELECT * FROM managers WHERE login = '$login' AND password = '$password'";
+   $query="SELECT * FROM managers WHERE login = '$login'";
    $result=$conn->query($query);
     
-   if(!$result) die ("Сбой при доступе к базе данных");
-
-   if($result->num_rows >0){
+   if(!$result) die ("Сбой при доступе к базе данных");   
+   $row=$result->fetch_array(MYSQLI_ASSOC);
+   $result->close();
+   if ( 
+   (password_verify($password, $row['password']))
+   ){
       $_SESSION['logged_user'] = $login;
-      $row=$result->fetch_array(MYSQLI_ASSOC);
-      $result->close();
+      
 
       $role=htmlspecialchars($row['role']);
       $id=htmlspecialchars($row['id']);
@@ -75,12 +79,6 @@ function open_session($conn, $id){
     
 }
 
-function mysql_entites_fix_string($conn, $string){
-   return htmlentities(mysql_fix_string($conn, $string));
-}
-function mysql_fix_string($conn, $string){
-   if(get_magic_quotes_gpc()) $string = stripcslashes($string);
-   return $conn->real_escape_string($string);
-}
+
  ?>
  
