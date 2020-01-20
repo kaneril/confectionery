@@ -106,7 +106,7 @@
 				<option value="new">Новые</option>
 				<option value="processed">Выполняются</option>
 				<option value="made">Готовы</option>
-				<option value="recieved">Получены</option>
+				<option value="received">Получены</option>
 				<option value="canceled">Отменены</option>
 				<option value="all">Все</option>
 				
@@ -180,7 +180,7 @@ _END;
 					<option value="new">Новый</option>
 					<option value="processed">Выполняется</option>
 					<option value="made">Готов</option>
-					<option value="recieved">Получен</option>
+					<option value="received">Получен</option>
                     <option value="canceled">Отменен</option>
                     <input type="hidden" name="actual_order_status" value='$status_list[$order_status]'>
 					
